@@ -4,6 +4,7 @@
 .classpath
 .idea
 bin
+logs
 build
 dist
 out
