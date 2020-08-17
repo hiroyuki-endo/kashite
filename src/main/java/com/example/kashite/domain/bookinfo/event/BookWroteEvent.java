@@ -10,6 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class BookWroteEvent {
+    private String id;
     private String bookInfoId;
     private String author;
 }

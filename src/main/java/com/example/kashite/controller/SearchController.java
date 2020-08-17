@@ -1,4 +1,4 @@
-package com.example.kashite.api;
+package com.example.kashite.controller;
 
 import java.util.List;
 

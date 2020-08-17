@@ -1,4 +1,4 @@
-package com.example.kashite.api.request;
+package com.example.kashite.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
