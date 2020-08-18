@@ -8,4 +8,6 @@ public interface BookInfo {
     String getPublisher();
     String getPublishedDate();
     String getDescription();
+    String getImageLink();
+
 }

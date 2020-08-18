@@ -28,6 +28,7 @@ public class BookInfo {
     private String publisher;
     private String publishedDate;
     private String description;
+    private String imageLink;
 
     @CommandHandler
     public BookInfo(CreateBookInfoCommand cmd) {

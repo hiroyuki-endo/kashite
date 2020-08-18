@@ -19,6 +19,7 @@ public class CreateBookInfoCommand extends AbstractCommand {
     private String publisher;
     private String publishedDate;
     private String description;
+    private String imageLink;
 
     @Override
     public String aggregateIdentifier() {

@@ -13,7 +13,7 @@ import com.example.kashite.framework.cqrs.CommandExecutor;
 import java.util.UUID;
 
 @Service
-public class BookInfoService {
+public class RegisterBookInfoApplicationService {
     @Autowired
     private BookSearchService bookSearchService;
     @Autowired
@@ -39,7 +39,8 @@ public class BookInfoService {
                 bookInfo.getAuthors(),
                 bookInfo.getPublisher(),
                 bookInfo.getPublishedDate(),
-                bookInfo.getDescription());
+                bookInfo.getDescription(),
+                bookInfo.getImageLink());
         executor.execute(createBookInfoCommand);
         return createBookInfoCommand.getId();
     }

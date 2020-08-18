@@ -18,6 +18,7 @@ public class BookInfoCreatedEvent {
     private String publisher;
     private String publishedDate;
     private String description;
+    private String imageLink;
 
     public static BookInfoCreatedEvent fromCommnad(CreateBookInfoCommand cmd) {
         return new BookInfoCreatedEvent(
@@ -27,7 +28,8 @@ public class BookInfoCreatedEvent {
                 cmd.getAuthors(),
                 cmd.getPublisher(),
                 cmd.getPublishedDate(),
-                cmd.getDescription()
+                cmd.getDescription(),
+                cmd.getImageLink()
         );
     }
 }

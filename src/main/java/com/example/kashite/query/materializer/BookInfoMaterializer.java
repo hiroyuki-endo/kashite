@@ -31,14 +31,16 @@ public class BookInfoMaterializer {
                 event.getTitle(),
                 event.getPublisher(),
                 event.getPublishedDate(),
-                event.getDescription());
-        log.debug("create bookInfo table of {}", bookInfoEntity);
+                event.getDescription(),
+                event.getImageLink());
         bookInfoDao.save(bookInfoEntity);
+        log.debug("Added bookInfo table");
     }
 
     @EventSourcingHandler
     public void createAuthor(BookWroteEvent event) {
         BookAuthorEntity entity = new BookAuthorEntity(event.getId(), event.getBookInfoId(), event.getAuthor());
         bookAuthorDao.save(entity);
+        log.debug("Added author table");
     }
 }

@@ -29,4 +29,6 @@ public class BookInfoEntity {
     private String publishedDate;
     @Column(length = 2048)
     private String description;
+    @Column(length = 2048)
+    private String imageLink;
 }

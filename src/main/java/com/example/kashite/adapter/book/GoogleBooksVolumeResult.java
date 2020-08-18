@@ -47,4 +47,9 @@ public class GoogleBooksVolumeResult implements BookInfo {
     public String getDescription() {
         return volumeInfo.getDescription();
     }
+
+    @Override
+    public String getImageLink() {
+        return volumeInfo.getImageLinks().getThumbnail();
+    }
 }

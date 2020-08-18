@@ -2,32 +2,35 @@ package com.example.kashite.controller;
 
 import java.util.List;
 
-import com.example.kashite.adapter.dao.AuthorDao;
+import com.example.kashite.query.dto.BookInfoDto;
+import com.example.kashite.query.service.BookInfoQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.kashite.adapter.dao.BookInfoDao;
 import com.example.kashite.controller.request.CreateBookInfoRequest;
 import com.example.kashite.query.entity.BookInfoEntity;
-import com.example.kashite.service.BookInfoService;
+import com.example.kashite.service.RegisterBookInfoApplicationService;
 
 @RestController
 public class BookInfoController {
     @Autowired
-    private BookInfoService bookInfoService;
+    private RegisterBookInfoApplicationService registerBookInfoApplicationService;
     @Autowired
     private BookInfoDao bookInfoDao;
+    @Autowired
+    private BookInfoQuery bookInfoQuery;
 
     @GetMapping("bookinfos")
     @CrossOrigin
-    public List<BookInfoEntity> bookInfos() {
-        return bookInfoDao.findAll();
+    public List<BookInfoDto> bookInfos() {
+        return bookInfoQuery.findAllBookInfo();
     }
 
     @GetMapping("bookinfos/{id}")
     @CrossOrigin
-    public BookInfoEntity bookInfo(@PathVariable String id) {
-        return bookInfoDao.getOne(id);
+    public BookInfoDto bookInfo(@PathVariable String id) {
+        return bookInfoQuery.findOneBookInfo(id);
     }
 
     @DeleteMapping("bookinfos/{id}")
@@ -39,6 +42,6 @@ public class BookInfoController {
     @PostMapping("bookinfos")
     @CrossOrigin
     public String createBookInfo(@RequestBody CreateBookInfoRequest cmd) {
-        return bookInfoService.registerBookInfo(cmd.getId());
+        return registerBookInfoApplicationService.registerBookInfo(cmd.getId());
     }
 }
