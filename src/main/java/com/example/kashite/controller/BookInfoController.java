@@ -1,21 +1,19 @@
 package com.example.kashite.controller;
 
-import java.util.List;
-
+import com.example.kashite.adapter.dao.BookInfoDao;
+import com.example.kashite.controller.request.CreateBookInfoRequest;
 import com.example.kashite.query.dto.BookInfoDto;
 import com.example.kashite.query.service.BookInfoQuery;
+import com.example.kashite.service.BookInfoApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.kashite.adapter.dao.BookInfoDao;
-import com.example.kashite.controller.request.CreateBookInfoRequest;
-import com.example.kashite.query.entity.BookInfoEntity;
-import com.example.kashite.service.RegisterBookInfoApplicationService;
+import java.util.List;
 
 @RestController
 public class BookInfoController {
     @Autowired
-    private RegisterBookInfoApplicationService registerBookInfoApplicationService;
+    private BookInfoApplicationService bookInfoApplicationService;
     @Autowired
     private BookInfoDao bookInfoDao;
     @Autowired
@@ -36,12 +34,12 @@ public class BookInfoController {
     @DeleteMapping("bookinfos/{id}")
     @CrossOrigin
     public void deleteBookInfo(@PathVariable String id) {
-        bookInfoDao.deleteById(id);
+        bookInfoApplicationService.deleteFor(id);
     }
 
     @PostMapping("bookinfos")
     @CrossOrigin
     public String createBookInfo(@RequestBody CreateBookInfoRequest cmd) {
-        return registerBookInfoApplicationService.registerBookInfo(cmd.getId());
+        return bookInfoApplicationService.registerBookInfo(cmd.getId());
     }
 }

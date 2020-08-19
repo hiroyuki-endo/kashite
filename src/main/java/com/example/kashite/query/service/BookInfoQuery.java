@@ -36,7 +36,7 @@ public class BookInfoQuery {
 
     public BookInfoDto findOneBookInfo(String id) {
         List<String> authors = bookAuthorDao.findByBookInfoId(id).stream()
-                .map(BookAuthorEntity::getAuthor)
+                .map(BookAuthorEntity::getId)
                 .collect(Collectors.toList());
 
         Optional<BookInfoEntity> bookInfoEntity = bookInfoDao.findById(id);
