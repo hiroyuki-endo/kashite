@@ -1,0 +1,22 @@
+.login {
+  font-size: x-large;
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-user-name {
+  width: 300px;
+  margin: 10px;
+}
+
+.login-password {
+  width: 300px;
+  margin: 10px;
+}
+
+.login-button {
+  width: 300px;
+  margin: 10px;
+}

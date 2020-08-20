@@ -1,0 +1,28 @@
+.book-search {
+  text-align: left;
+}
+
+.book-info-search {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 10px 20px 5px 5px;
+}
+
+.input-title {
+  width: 200px;
+  margin: 0px 5px;
+}
+
+.input-author {
+  width: 200px;
+  margin: 0px 5px;
+}
+
+.book-search-button {
+  margin: 0px 5px;
+}
+
+.book-contents {
+  margin: 20px 5px;
+}
