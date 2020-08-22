@@ -1,11 +1,10 @@
-package com.example.kashite.adapter.dao;
+package com.example.kashite.query.model.author;
 
-import com.example.kashite.query.entity.AuthorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AuthorDao extends JpaRepository<AuthorEntity, String> {
+public interface AuthorRepository extends JpaRepository<AuthorEntity, String> {
 
     boolean existsByAuthor(String author);
 }

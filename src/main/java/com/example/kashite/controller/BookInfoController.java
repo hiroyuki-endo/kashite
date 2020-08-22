@@ -1,8 +1,8 @@
 package com.example.kashite.controller;
 
-import com.example.kashite.adapter.dao.BookInfoDao;
 import com.example.kashite.controller.request.CreateBookInfoRequest;
 import com.example.kashite.query.dto.BookInfoDto;
+import com.example.kashite.query.model.bookinfo.BookInfoRepository;
 import com.example.kashite.query.service.BookInfoQuery;
 import com.example.kashite.service.BookInfoApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class BookInfoController {
     @Autowired
     private BookInfoApplicationService bookInfoApplicationService;
     @Autowired
-    private BookInfoDao bookInfoDao;
+    private BookInfoRepository bookInfoRepositoy;
     @Autowired
     private BookInfoQuery bookInfoQuery;
 

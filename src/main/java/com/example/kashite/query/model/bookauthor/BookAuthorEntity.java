@@ -1,4 +1,4 @@
-package com.example.kashite.query.entity;
+package com.example.kashite.query.model.bookauthor;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

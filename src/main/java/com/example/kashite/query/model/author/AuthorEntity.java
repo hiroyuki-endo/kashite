@@ -1,4 +1,4 @@
-package com.example.kashite.query.entity;
+package com.example.kashite.query.model.author;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,9 +14,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "READER")
-public class ReaderEntity {
+@Table(name = "AUTHOR")
+public class AuthorEntity {
     @Id
     private String id;
-    private String name;
+    private String author;
 }

@@ -1,14 +1,14 @@
 package com.example.kashite.service;
 
-import com.example.kashite.adapter.dao.AuthorDao;
-import com.example.kashite.adapter.dao.BookAuthorDao;
-import com.example.kashite.adapter.dao.BookInfoDao;
 import com.example.kashite.domain.author.command.CreateAuthorCommand;
 import com.example.kashite.domain.bookinfo.command.CreateBookInfoCommand;
 import com.example.kashite.domain.search.BookInfo;
 import com.example.kashite.domain.search.BookSearchService;
 import com.example.kashite.framework.cqrs.CommandExecutor;
-import com.example.kashite.query.entity.BookAuthorEntity;
+import com.example.kashite.query.model.author.AuthorRepository;
+import com.example.kashite.query.model.bookauthor.BookAuthorEntity;
+import com.example.kashite.query.model.bookauthor.BookAuthorRepository;
+import com.example.kashite.query.model.bookinfo.BookInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,11 @@ public class BookInfoApplicationService {
     @Autowired
     private BookSearchService bookSearchService;
     @Autowired
-    private AuthorDao authorDao;
+    private AuthorRepository authorRepository;
     @Autowired
-    private BookAuthorDao bookAuthorDao;
+    private BookAuthorRepository bookAuthorRepository;
     @Autowired
-    private BookInfoDao bookInfoDao;
+    private BookInfoRepository bookInfoRepository;
     @Autowired
     private CommandExecutor executor;
 
@@ -34,14 +34,15 @@ public class BookInfoApplicationService {
         BookInfo bookInfo = bookSearchService.searchById(id);
         // Create Author
         for(String author : bookInfo.getAuthors()) {
-            if(!authorDao.existsByAuthor(author)) {
-                CreateAuthorCommand createAuthorCommand = new CreateAuthorCommand(UUID.randomUUID().toString(), author);
+            if(!authorRepository.existsByAuthor(author)) {
+                CreateAuthorCommand createAuthorCommand = new CreateAuthorCommand(UUID.randomUUID().toString(), 0, author);
                 executor.execute(createAuthorCommand);
             }
         }
         // Create BookInfo
         CreateBookInfoCommand createBookInfoCommand = new CreateBookInfoCommand(
                 bookInfo.getId(),
+                0,
                 bookInfo.getIsbn(),
                 bookInfo.getTitle(),
                 bookInfo.getAuthors(),
@@ -54,9 +55,9 @@ public class BookInfoApplicationService {
     }
 
     public void deleteFor(String id) {
-        List<BookAuthorEntity> authors = bookAuthorDao.findByBookInfoId(id).stream()
+        List<BookAuthorEntity> authors = bookAuthorRepository.findByBookInfoId(id).stream()
                 .collect(Collectors.toList());
-        bookAuthorDao.deleteAll(authors);
-        bookInfoDao.deleteById(id);
+        bookAuthorRepository.deleteAll(authors);
+        bookInfoRepository.deleteById(id);
     }
 }

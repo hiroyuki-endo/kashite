@@ -1,11 +1,10 @@
 package com.example.kashite.query.service;
 
-import com.example.kashite.adapter.dao.AuthorDao;
-import com.example.kashite.adapter.dao.BookAuthorDao;
-import com.example.kashite.adapter.dao.BookInfoDao;
 import com.example.kashite.query.dto.BookInfoDto;
-import com.example.kashite.query.entity.BookAuthorEntity;
-import com.example.kashite.query.entity.BookInfoEntity;
+import com.example.kashite.query.model.bookauthor.BookAuthorEntity;
+import com.example.kashite.query.model.bookauthor.BookAuthorRepository;
+import com.example.kashite.query.model.bookinfo.BookInfoEntity;
+import com.example.kashite.query.model.bookinfo.BookInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,26 +19,26 @@ import static java.util.stream.Collectors.*;
 public class BookInfoQuery {
 
     @Autowired
-    private BookInfoDao bookInfoDao;
+    private BookInfoRepository bookInfoRepository;
 
     @Autowired
-    private BookAuthorDao bookAuthorDao;
+    private BookAuthorRepository bookAuthorRepository;
 
     public List<BookInfoDto>  findAllBookInfo() {
-        Map<String, List<String>> bookAuthorDic = bookAuthorDao.findAll().stream()
+        Map<String, List<String>> bookAuthorDic = bookAuthorRepository.findAll().stream()
                 .collect(groupingBy(BookAuthorEntity::getBookInfoId, mapping(BookAuthorEntity::getAuthor, toList())));
 
-        return bookInfoDao.findAll().stream()
+        return bookInfoRepository.findAll().stream()
                 .map(entity -> convertFrom(entity,
                         bookAuthorDic.get(entity.getId()).toArray(new String[bookAuthorDic.size()]))).collect(toList());
     }
 
     public BookInfoDto findOneBookInfo(String id) {
-        List<String> authors = bookAuthorDao.findByBookInfoId(id).stream()
+        List<String> authors = bookAuthorRepository.findByBookInfoId(id).stream()
                 .map(BookAuthorEntity::getId)
                 .collect(Collectors.toList());
 
-        Optional<BookInfoEntity> bookInfoEntity = bookInfoDao.findById(id);
+        Optional<BookInfoEntity> bookInfoEntity = bookInfoRepository.findById(id);
         return bookInfoEntity.map(e -> convertFrom(e,authors.toArray(new String[authors.size()]))).orElse(null);
     }
 

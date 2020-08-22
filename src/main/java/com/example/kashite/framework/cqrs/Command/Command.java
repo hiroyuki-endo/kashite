@@ -1,9 +1,9 @@
 package com.example.kashite.framework.cqrs.Command;
 
-import java.util.UUID;
-
-import org.axonframework.modelling.command.TargetAggregateVersion;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import org.axonframework.modelling.command.TargetAggregateVersion;
+
+import java.util.UUID;
 
 public interface Command {
     default String newId() {
@@ -11,8 +11,16 @@ public interface Command {
     }
 
     @TargetAggregateIdentifier
-    String aggregateIdentifier();
+    default String aggregateIdentifier() {
+        return getId();
+    }
 
     @TargetAggregateVersion
-    long aggreateVersion();
+    default long aggregateVersion(){
+        return getVersion();
+    };
+
+    String getId();
+
+    long getVersion();
 }

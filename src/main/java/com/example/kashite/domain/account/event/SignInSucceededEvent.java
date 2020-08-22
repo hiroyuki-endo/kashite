@@ -1,8 +1,8 @@
 package com.example.kashite.domain.account.event;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
-public class LoginFailedEvent {
+@Value
+public class SignInSucceededEvent {
     private String id;
 }

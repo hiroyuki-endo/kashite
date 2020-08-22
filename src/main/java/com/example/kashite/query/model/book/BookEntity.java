@@ -1,4 +1,4 @@
-package com.example.kashite.query.entity;
+package com.example.kashite.query.model.book;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
