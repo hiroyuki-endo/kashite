@@ -1,11 +1,10 @@
 package com.example.kashite.domain.book.command;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
-
 import com.example.kashite.framework.cqrs.Command.AbstractCommand;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @AllArgsConstructor
 @Getter

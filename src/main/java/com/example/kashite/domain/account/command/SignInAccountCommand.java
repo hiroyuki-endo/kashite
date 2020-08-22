@@ -1,18 +1,15 @@
-package com.example.kashite.domain.reader.command;
+package com.example.kashite.domain.account.command;
 
 import com.example.kashite.framework.cqrs.Command.AbstractCommand;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
-public class CreateReaderCommand extends AbstractCommand {
-    @TargetAggregateIdentifier
+public class SignInAccountCommand extends AbstractCommand {
     private String id;
     private String name;
+    private String password;
 
     @Override
     public String aggregateIdentifier() {

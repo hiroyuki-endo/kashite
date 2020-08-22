@@ -2,8 +2,8 @@ package com.example.kashite.framework.cqrs.Command;
 
 import java.util.UUID;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
-import org.axonframework.commandhandling.TargetAggregateVersion;
+import org.axonframework.modelling.command.TargetAggregateVersion;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 public interface Command {
     default String newId() {

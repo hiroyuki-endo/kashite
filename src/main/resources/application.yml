@@ -11,5 +11,14 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-mvc:
-  static-path-pattern=/**:
+#mvc:
+#  static-path-pattern=/**:
+
+axon:
+  axonserver:
+    enabled: false
+  eventhandling:
+    processors:
+      name:
+        mode: subscribing
+        source: eventBus

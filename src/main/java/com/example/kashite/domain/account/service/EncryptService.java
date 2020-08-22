@@ -1,4 +1,4 @@
-package com.example.kashite.domain.account;
+package com.example.kashite.domain.account.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -4,7 +4,7 @@ import com.example.kashite.framework.cqrs.Command.AbstractCommand;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @NoArgsConstructor
 @AllArgsConstructor
