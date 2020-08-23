@@ -8,14 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class SignInAccountCommand implements Command {
+public class DeleteAccountCommand implements Command {
+
     private String id;
     private long version;
-    private String name;
-    private String password;
-
-    @Override
-    public String aggregateIdentifier() {
-        return id;
-    }
 }

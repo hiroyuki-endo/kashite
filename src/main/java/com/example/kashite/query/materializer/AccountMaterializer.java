@@ -1,6 +1,7 @@
 package com.example.kashite.query.materializer;
 
 import com.example.kashite.domain.account.event.AccountCreatedEvent;
+import com.example.kashite.domain.account.event.AccountDeletedEvent;
 import com.example.kashite.domain.account.event.SignInFailedEvent;
 import com.example.kashite.domain.account.event.SignInSucceededEvent;
 import com.example.kashite.query.model.account.AccountEntity;
@@ -33,5 +34,10 @@ public class AccountMaterializer {
         AccountEntity entity = accountRepository.findById(event.getId()).orElse(null);
         entity.setFailedCount(entity.getFailedCount() + 1);
         accountRepository.save(entity);
+    }
+
+    @EventSourcingHandler
+    public void on(AccountDeletedEvent event) {
+        accountRepository.deleteById(event.getId());
     }
 }

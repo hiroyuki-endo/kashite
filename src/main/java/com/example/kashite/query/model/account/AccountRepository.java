@@ -9,4 +9,6 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<AccountEntity, String> {
 
     List<AccountEntity> findByName(String name);
+
+    boolean existsByName(String name);
 }
