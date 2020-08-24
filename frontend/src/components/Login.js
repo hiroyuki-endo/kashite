@@ -12,7 +12,7 @@ function Login() {
 
     function login() {
         dispatch({ type: "FETCH_ACCOUNT" })
-        history.push('/')
+        history.push('/kashite')
     }
 
     return (

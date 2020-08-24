@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 function Auth({ children }) {
     const account = useSelector(state => state.account);
 
-    return account.isAuth ? children() : <Redirect to={'/login'} />;
+    return account.isAuth ? children() : <Redirect to={'/kashite/top'} />;
 }
 
 export default Auth;

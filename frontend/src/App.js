@@ -8,6 +8,7 @@ import Auth from './Auth'
 import BookSearch from './components/BookSearch';
 import Login from './components/Login';
 import Main from './Main'
+import Front from './Front'
 import errorNotification from './components/ErrorNotification'
 import {
   SearchOutlined,
@@ -26,8 +27,8 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path='/login' render={() => <Login />} />
-          <Route path='/' render={() => <Auth children={Main} />} />
+          <Route path='/kashite/top' render={() => <Front />} />
+          <Route path='/kashite' render={() => <Auth children={Main} />} />
         </Switch>
       </Router>
     </div >

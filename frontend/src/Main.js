@@ -30,17 +30,17 @@ function Main() {
               <div className="logo" />
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                 <Menu.Item key="1" icon={<SearchOutlined />}>
-                  <Link to="/search">本検索</Link>
+                  <Link to="/kashite/search">本検索</Link>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<PieChartOutlined />}>
-                  <Link to="/rental">レンタル本</Link>
+                  <Link to="/kashite/rental">レンタル本</Link>
                 </Menu.Item>
               </Menu>
             </Sider>
             <Content>
               <Switch>
-                <Route path='/search' render={() => <BookSearch />} />
-                <Route path='/rental' render={() => <BookSearch />} />
+                <Route path='/kashite/search' render={() => <BookSearch />} />
+                <Route path='/kashite/rental' render={() => <BookSearch />} />
                 <Route path='/AAA' render={() => <AAA />} />
               </Switch>
             </Content>
