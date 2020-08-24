@@ -5,6 +5,7 @@ import com.example.kashite.domain.account.command.CreateAccountCommand;
 import com.example.kashite.domain.account.command.SignInAccountCommand;
 import com.example.kashite.domain.account.event.AccountCreatedEvent;
 import com.example.kashite.domain.account.event.SignInSucceededEvent;
+import com.example.kashite.domain.account.service.AccountChecker;
 import com.example.kashite.domain.account.service.AuthService;
 import com.example.kashite.domain.account.service.EncryptService;
 import org.junit.Test;
@@ -25,6 +26,9 @@ public class AccountAggregateTest extends DomainTest<AccountAggregate> {
     @Mock
     private AuthService authService;
 
+    @Mock
+    private AccountChecker accountChecker;
+
     @Override
     protected Class<AccountAggregate> targetClass() {
         return AccountAggregate.class;
@@ -35,16 +39,27 @@ public class AccountAggregateTest extends DomainTest<AccountAggregate> {
         super.setUp();
         fixture().registerInjectableResource(encryptService);
         fixture().registerInjectableResource(authService);
+        fixture().registerInjectableResource(accountChecker);
     }
 
     @Test
-    public void createAccount() {
+    public void createAccount_success() {
         when(encryptService.encode("testPassword")).thenReturn("encryptedPassword");
 
         fixture().given()
                 .when(new CreateAccountCommand("accountId", 0, "testName", "testPassword"))
                 .expectSuccessfulHandlerExecution()
                 .expectEvents(new AccountCreatedEvent("accountId", "testName", "encryptedPassword"));
+    }
+
+    @Test
+    public void createAccount_alreadyExists() {
+        when(encryptService.encode("testPassword")).thenReturn("encryptedPassword");
+        doThrow(new IllegalStateException()).when(accountChecker).checkNotExistsName(any());
+
+        fixture().given()
+                .when(new CreateAccountCommand("accountId", 0, "testName", "testPassword"))
+                .expectException(IllegalStateException.class);
     }
 
     @Test

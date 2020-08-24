@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /** セキュリティ設定を無視するURL */
     private String[] SECURITY_IGNORE_URLS = new String[] {
             "/h2-console",
+            "/h2-console/**",
             "/swagger-ui/**"
     };
 
