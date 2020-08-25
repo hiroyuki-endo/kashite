@@ -4,15 +4,15 @@ import { withRouter } from 'react-router-dom';
 import { Button, Input } from 'antd';
 import useReactRouter from 'use-react-router';
 import SubTitle from './SubTitle'
-import './Login.css'
+import './SignIn.css'
 
-function Login() {
+function SignIn() {
     const dispatch = useDispatch();
     const { history, location, match } = useReactRouter();
 
     function login() {
         dispatch({ type: "FETCH_ACCOUNT" })
-        history.push('/kashite')
+        history.push('/kashite/main')
     }
 
     return (
@@ -21,8 +21,8 @@ function Login() {
                 <SubTitle name={"ログイン"} />
             </div>
             <div className="login">
-                <Input className="login-user-name" placeholder="ユーザー名"></Input>
-                <Input className="login-password" placeholder="パスワード"></Input>
+                <Input className="login-user-name" placeholder="ユーザーID" />
+                <Input.Password className="login-password" placeholder="パスワード" />
                 <Button className="login-button" type="primary" onClick={v => login()}>ログイン</Button>
             </div>
         </div>
@@ -30,4 +30,4 @@ function Login() {
 }
 
 
-export default withRouter(Login);
+export default withRouter(SignIn);

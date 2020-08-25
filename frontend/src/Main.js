@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import './App.css';
 import { Layout, Menu } from 'antd';
@@ -30,17 +30,17 @@ function Main() {
               <div className="logo" />
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                 <Menu.Item key="1" icon={<SearchOutlined />}>
-                  <Link to="/kashite/search">本検索</Link>
+                  <Link to="/kashite/main/search">本検索</Link>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<PieChartOutlined />}>
-                  <Link to="/kashite/rental">レンタル本</Link>
+                  <Link to="/kashite/main/rental">レンタル本</Link>
                 </Menu.Item>
               </Menu>
             </Sider>
             <Content>
               <Switch>
-                <Route path='/kashite/search' render={() => <BookSearch />} />
-                <Route path='/kashite/rental' render={() => <BookSearch />} />
+                <Route path='/kashite/main/search' render={() => <BookSearch />} />
+                <Route path='/kashite/main/rental' render={() => <BookSearch />} />
                 <Route path='/AAA' render={() => <AAA />} />
               </Switch>
             </Content>

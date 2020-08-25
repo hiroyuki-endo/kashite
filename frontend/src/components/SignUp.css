@@ -1,0 +1,22 @@
+.signup {
+  font-size: x-large;
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signup-user-name {
+  width: 300px;
+  margin: 10px;
+}
+
+.signup-password {
+  width: 300px;
+  margin: 10px;
+}
+
+.signup-button {
+  width: 300px;
+  margin: 10px;
+}
