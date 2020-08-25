@@ -18,6 +18,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.util.Objects;
+
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 import static org.axonframework.modelling.command.AggregateLifecycle.markDeleted;
 
@@ -28,6 +30,7 @@ public class AccountAggregate {
     @AggregateIdentifier
     private String id;
     private String name;
+    private String displayName;
     private int filedCount;
 
     @CommandHandler
@@ -35,7 +38,8 @@ public class AccountAggregate {
         accountChecker.checkNotExistsName(cmd.getName());
 
         AccountCreatedEvent event =
-                new AccountCreatedEvent(cmd.getId(), cmd.getName(), encryptService.encode(cmd.getPassword()));
+                new AccountCreatedEvent(cmd.getId(), cmd.getName(),
+                        cmd.getDisplayName(), encryptService.encode(cmd.getPassword()));
         apply(event);
     }
 
@@ -59,6 +63,12 @@ public class AccountAggregate {
     public void on(AccountCreatedEvent event) {
         this.id = event.getId();
         this.name = event.getName();
+        if(Objects.isNull(event.getDisplayName())) {
+            // 表示名が無い場合は、ユーザー名を設定する
+            this.displayName = this.name;
+        } else {
+            this.displayName = event.getDisplayName();
+        }
     }
 
     @EventSourcingHandler

@@ -11,6 +11,7 @@ public class AccountCreatedEvent {
 
     private String id;
     private String name;
+    private String displayName;
     private String password;
 
 }

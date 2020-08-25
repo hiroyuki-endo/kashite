@@ -14,9 +14,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-#mvc:
-#  static-path-pattern=/**:
-
 axon:
   axonserver:
     enabled: false

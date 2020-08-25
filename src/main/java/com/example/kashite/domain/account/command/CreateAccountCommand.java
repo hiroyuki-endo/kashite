@@ -11,6 +11,7 @@ public class CreateAccountCommand implements Command {
     private String id;
     private long version;
     private String name;
+    private String displayName;
     private String password;
 
     public CreateAccountCommand() {
