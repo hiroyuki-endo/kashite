@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class AccountDeletedEvent {
+public class AccountChangedEvent {
+
     private String id;
     private long version;
+    private String displayName;
+
 }

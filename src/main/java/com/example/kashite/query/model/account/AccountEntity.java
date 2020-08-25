@@ -16,6 +16,7 @@ public class AccountEntity {
     @Id
     private String id;
     private String name;
+    private String displayName;
     private String password;
     private int failedCount;
 }

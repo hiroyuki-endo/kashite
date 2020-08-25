@@ -5,4 +5,5 @@ import lombok.Value;
 @Value
 public class SignInSucceededEvent {
     private String id;
+    private long version;
 }

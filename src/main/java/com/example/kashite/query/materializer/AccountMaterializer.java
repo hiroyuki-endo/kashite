@@ -1,9 +1,6 @@
 package com.example.kashite.query.materializer;
 
-import com.example.kashite.domain.account.event.AccountCreatedEvent;
-import com.example.kashite.domain.account.event.AccountDeletedEvent;
-import com.example.kashite.domain.account.event.SignInFailedEvent;
-import com.example.kashite.domain.account.event.SignInSucceededEvent;
+import com.example.kashite.domain.account.event.*;
 import com.example.kashite.query.model.account.AccountEntity;
 import com.example.kashite.query.model.account.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +16,7 @@ public class AccountMaterializer {
 
     @EventSourcingHandler
     public void on(AccountCreatedEvent event) {
-        accountRepository.save(new AccountEntity(event.getId(), event.getName(), event.getPassword(), 0));
+        accountRepository.save(new AccountEntity(event.getId(), event.getName(), event.getDisplayName(), event.getPassword(), 0));
     }
 
     @EventSourcingHandler
@@ -33,6 +30,20 @@ public class AccountMaterializer {
     public void on(SignInFailedEvent event) {
         AccountEntity entity = accountRepository.findById(event.getId()).orElse(null);
         entity.setFailedCount(entity.getFailedCount() + 1);
+        accountRepository.save(entity);
+    }
+
+    @EventSourcingHandler
+    public void on(AccountChangedEvent event) {
+        AccountEntity entity = accountRepository.findById(event.getId()).orElse(null);
+        entity.setDisplayName(event.getDisplayName());
+        accountRepository.save(entity);
+    }
+
+    @EventSourcingHandler
+    public void on(PasswordChangedEvent event) {
+        AccountEntity entity = accountRepository.findById(event.getId()).orElse(null);
+        entity.setDisplayName(event.getPassword());
         accountRepository.save(entity);
     }
 

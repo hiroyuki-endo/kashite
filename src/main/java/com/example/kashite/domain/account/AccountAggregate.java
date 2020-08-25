@@ -1,13 +1,7 @@
 package com.example.kashite.domain.account;
 
-import com.example.kashite.domain.account.command.CreateAccountCommand;
-import com.example.kashite.domain.account.command.DeleteAccountCommand;
-import com.example.kashite.domain.account.command.FailedAccountCommand;
-import com.example.kashite.domain.account.command.SignInAccountCommand;
-import com.example.kashite.domain.account.event.AccountCreatedEvent;
-import com.example.kashite.domain.account.event.AccountDeletedEvent;
-import com.example.kashite.domain.account.event.SignInFailedEvent;
-import com.example.kashite.domain.account.event.SignInSucceededEvent;
+import com.example.kashite.domain.account.command.*;
+import com.example.kashite.domain.account.event.*;
 import com.example.kashite.domain.account.service.AccountChecker;
 import com.example.kashite.domain.account.service.AuthService;
 import com.example.kashite.domain.account.service.EncryptService;
@@ -46,17 +40,27 @@ public class AccountAggregate {
     @CommandHandler
     public void handle(SignInAccountCommand cmd, AuthService authService) {
         authService.authenticate(cmd.getName(), cmd.getPassword());
-        apply(new SignInSucceededEvent(cmd.getId()));
+        apply(new SignInSucceededEvent(cmd.getId(), cmd.getVersion()));
+    }
+
+    @CommandHandler
+    public void handle(ChangeAccountCommand cmd) {
+        apply(new AccountChangedEvent(cmd.getId(), cmd.getVersion(), cmd.getDisplayName()));
+    }
+
+    @CommandHandler
+    public void handle(ChangePasswordCommand cmd, EncryptService encryptService) {
+        apply(new PasswordChangedEvent(cmd.getId(), cmd.getVersion(), encryptService.encode(cmd.getPassword())));
     }
 
     @CommandHandler
     public void handle(FailedAccountCommand cmd) {
-        apply(new SignInFailedEvent(cmd.getId()));
+        apply(new SignInFailedEvent(cmd.getId(), cmd.getVersion()));
     }
 
     @CommandHandler
     public void handle(DeleteAccountCommand cmd) {
-        apply(new AccountDeletedEvent(cmd.getId()));
+        apply(new AccountDeletedEvent(cmd.getId(), cmd.getVersion()));
     }
 
     @EventSourcingHandler
@@ -79,6 +83,11 @@ public class AccountAggregate {
     @EventSourcingHandler
     public void on(SignInFailedEvent event) {
         this.filedCount++;
+    }
+
+    @EventSourcingHandler
+    public void on(AccountChangedEvent event) {
+        this.displayName = event.getDisplayName();
     }
 
     @EventSourcingHandler

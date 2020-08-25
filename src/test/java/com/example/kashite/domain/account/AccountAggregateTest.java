@@ -11,11 +11,11 @@ import com.example.kashite.domain.account.service.EncryptService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 public class AccountAggregateTest extends DomainTest<AccountAggregate> {
@@ -47,9 +47,9 @@ public class AccountAggregateTest extends DomainTest<AccountAggregate> {
         when(encryptService.encode("testPassword")).thenReturn("encryptedPassword");
 
         fixture().given()
-                .when(new CreateAccountCommand("accountId", 0, "testName", "testPassword"))
+                .when(new CreateAccountCommand("accountId", 0, "testName", "displayName", "testPassword"))
                 .expectSuccessfulHandlerExecution()
-                .expectEvents(new AccountCreatedEvent("accountId", "testName", "encryptedPassword"));
+                .expectEvents(new AccountCreatedEvent("accountId", "testName", "displayName", "encryptedPassword"));
     }
 
     @Test
@@ -58,23 +58,23 @@ public class AccountAggregateTest extends DomainTest<AccountAggregate> {
         doThrow(new IllegalStateException()).when(accountChecker).checkNotExistsName(any());
 
         fixture().given()
-                .when(new CreateAccountCommand("accountId", 0, "testName", "testPassword"))
+                .when(new CreateAccountCommand("accountId", 0, "testName", "displayName", "testPassword"))
                 .expectException(IllegalStateException.class);
     }
 
     @Test
     public void signInSucceed() {
-        fixture().given(new AccountCreatedEvent("accountId", "testName", "encryptedPassword"))
+        fixture().given(new AccountCreatedEvent("accountId", "testName", "displayName", "encryptedPassword"))
                 .when(new SignInAccountCommand("accountId", 0, "testName", "testPassword"))
                 .expectSuccessfulHandlerExecution()
-                .expectEvents(new SignInSucceededEvent("accountId"));
+                .expectEvents(new SignInSucceededEvent("accountId", 0));
     }
 
     @Test
     public void signInFailed() {
         when(authService.authenticate("testName", "failedPassword")).thenThrow(new ArithmeticException());
 
-        fixture().given(new AccountCreatedEvent("accountId", "testName", "encryptedPassword"))
+        fixture().given(new AccountCreatedEvent("accountId", "testName", "displayName", "encryptedPassword"))
                 .when(new SignInAccountCommand("accountId", 0, "testName", "failedPassword"))
                 .expectException(ArithmeticException.class);
     }
